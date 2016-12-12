@@ -17,17 +17,25 @@ namespace Cape.Repositories
 
         public void Create(Report obj)
         {
-            throw new NotImplementedException();
+            context.Report.Add(obj);
+
+            context.SaveChangesAsync();
         }
 
-        public void Save()
+        public Report GetById(int reportId)
         {
-            throw new NotImplementedException();
+            Report selectedReport = context.Report.Single(r => r.ReportId == reportId);
+
+            return selectedReport;
         }
 
         public void Update(Report obj)
         {
-            throw new NotImplementedException();
+            context.Entry(obj);
+
+            context.ChangeTracker.DetectChanges();
+
+            context.SaveChangesAsync();
         }
     }
 }

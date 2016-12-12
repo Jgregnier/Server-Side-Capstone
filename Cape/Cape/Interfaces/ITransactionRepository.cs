@@ -6,6 +6,6 @@ namespace Cape.Interfaces
     {
         void Create(Transaction obj);
         void Update(Transaction obj);
-        void Save();
+        Transaction GetById(int transactionId);
     }
 }

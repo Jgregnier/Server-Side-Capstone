@@ -2,7 +2,6 @@
 using Cape.Models;
 using Cape.Data;
 using Cape.Interfaces;
-using System;
 
 namespace Cape.Repositories
 {
@@ -17,17 +16,25 @@ namespace Cape.Repositories
 
         public void Create(Transaction obj)
         {
-            throw new NotImplementedException();
+            context.Transaction.Add(obj);
+
+            context.SaveChanges();
         }
 
-        public void Save()
+        public Transaction GetById(int transactionId)
         {
-            throw new NotImplementedException();
+            Transaction SelectedTransaction = context.Transaction.Single(t => t.TransactionId == transactionId);
+
+            return SelectedTransaction;
         }
 
         public void Update(Transaction obj)
         {
-            throw new NotImplementedException();
+            context.Entry(obj);
+
+            context.ChangeTracker.DetectChanges();
+
+            context.SaveChanges();
         }
     }
 }

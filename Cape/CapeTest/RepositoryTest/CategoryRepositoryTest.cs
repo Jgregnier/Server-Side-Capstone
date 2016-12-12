@@ -51,7 +51,7 @@ namespace Cape.Test.RepositoryTest
         }
 
         [TestMethod]
-        public void RepoCanCreateCategories()
+        public void RepoCanCreateCategoriesAndGetByID()
         {
 
             List<Category> ListOfCategories = new List<Category>();
@@ -77,6 +77,37 @@ namespace Cape.Test.RepositoryTest
 
             Assert.IsNotNull(ShouldBeCreatedCategory);
             Assert.AreEqual(ShouldBeCreatedCategory, CreatedCategory);
+        }
+
+        [TestMethod]
+        public void CategoryRepoCanUpdateCategories()
+        {
+            List<Category> ListOfCategories = new List<Category>();
+
+            Category TestCategory = new Category();
+            TestCategory.Name = "Test Category";
+            TestCategory.CategoryId = 0;
+
+            ListOfCategories.Add(TestCategory);
+
+            ConnectMocksToDataStore(ListOfCategories);
+
+            mock_category_set.Setup(a => a.Add(It.IsAny<Category>()))
+                .Callback((Category x) => ListOfCategories.Add(x));
+
+            Category CreatedCategory = new Category();
+            CreatedCategory.Name = "Created Category";
+            CreatedCategory.CategoryId = 1;
+
+            categoryRepository.Create(CreatedCategory);
+
+            CreatedCategory.Name = "Updated Category Name";
+
+            categoryRepository.Update(CreatedCategory);
+
+            Category updatedCategory = categoryRepository.GetById(CreatedCategory.CategoryId);
+
+            Assert.AreEqual(updatedCategory.Name, "Updated Category Name");
         }
     }
 }

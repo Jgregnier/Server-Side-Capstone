@@ -4,7 +4,8 @@ namespace Cape.Interfaces
 {
     public interface ICategoryRepository
     {
+        Category GetById(int categoryId);
         void Create(Category obj);
-        void Save();
+        void Update(Category obj);
     }
 }

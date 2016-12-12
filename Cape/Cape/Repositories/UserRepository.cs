@@ -17,17 +17,25 @@ namespace Cape.Repositories
 
         public void Create(ApplicationUser obj)
         {
-            throw new NotImplementedException();
+            context.Users.Add(obj);
+
+            context.SaveChangesAsync();
         }
 
-        public void Save()
+        public ApplicationUser GetById(string UserId)
         {
-            throw new NotImplementedException();
+            ApplicationUser selectedUser = context.Users.Single(user => user.Id == UserId);
+
+            return selectedUser;
         }
 
         public void Update(ApplicationUser obj)
         {
-            throw new NotImplementedException();
+            context.Entry(obj);
+
+            context.ChangeTracker.DetectChanges();
+
+            context.SaveChangesAsync();
         }
     }
 }

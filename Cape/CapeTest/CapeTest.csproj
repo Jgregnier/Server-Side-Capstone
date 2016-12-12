@@ -89,6 +89,9 @@
     <Compile Include="EntityTest\TransactionTest.cs" />
     <Compile Include="EntityTest\UserTest.cs" />
     <Compile Include="RepositoryTest\CategoryRepositoryTest.cs" />
+    <Compile Include="RepositoryTest\ReportRepositoryTest.cs" />
+    <Compile Include="RepositoryTest\TransactionRepositoryTest.cs" />
+    <Compile Include="RepositoryTest\UserRepositoryTest.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

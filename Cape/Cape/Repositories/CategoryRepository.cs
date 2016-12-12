@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Cape.Data;
 using Cape.Interfaces;
 using Cape.Models;
-using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 
 namespace Cape.Repositories
 {
@@ -30,9 +28,13 @@ namespace Cape.Repositories
             context.SaveChanges();
         }
 
-        public void Save()
+        public void Update(Category obj)
         {
-            context.SaveChangesAsync();
+            context.Entry(obj);
+
+            context.ChangeTracker.DetectChanges();
+
+            context.SaveChanges();
         }
     }
 }
