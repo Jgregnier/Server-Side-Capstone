@@ -2,7 +2,6 @@
 using Cape.Data;
 using Cape.Interfaces;
 using Cape.Models;
-using System.Data.Entity;
 
 namespace Cape.Repositories
 {
