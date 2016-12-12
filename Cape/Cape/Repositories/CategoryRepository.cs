@@ -19,14 +19,14 @@ namespace Cape.Repositories
 
         public Category GetById(int categoryId)
         {
-            Category selectedCategory = context.Category.Where(category => category.CategoryId == categoryId).Single();
+            Category selectedCategory = context.Category.Single(category => category.CategoryId == categoryId);
 
             return selectedCategory;
         }
 
         public void Create(Category obj)
         {
-            context.Entry(obj);
+            context.Category.Add(obj);
             context.SaveChanges();
         }
 

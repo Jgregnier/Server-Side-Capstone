@@ -1,14 +1,15 @@
-﻿using System.Data.Entity;
-using Moq;
+﻿using Moq;
+using System.Data.Entity;
 using Cape.Repositories;
 using Cape.Models;
 using Cape.Data;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Cape.Test.RepositoryTest
 {
+    [TestClass]
     public class CategoryRepositoryTest
     {
         private Mock<DbSet<Category>> mock_category_set;
@@ -26,14 +27,16 @@ namespace Cape.Test.RepositoryTest
             mock_context.Setup(c => c.Category).Returns(mock_category_set.Object);
         }
 
+        [TestInitialize]
         public void Initialize()
         {
-            mock_context = new Mock<ApplicationDbContext>();
+            mock_context = new Mock<ApplicationDbContext>() { CallBase = true};
             mock_category_set = new Mock<DbSet<Category>>();
             categoryRepositoryConnection = new CategoryRepositoryConnection(mock_context.Object);
             categoryRepository = new CategoryRepository(categoryRepositoryConnection);
         }
 
+        [TestCleanup]
         public void Cleanup()
         {
             mock_context = null;
@@ -41,41 +44,39 @@ namespace Cape.Test.RepositoryTest
             categoryRepository = null;
         }
 
-        [Fact]
+        [TestMethod]
         public void InsureRepoCreation()
         {
-            Initialize();
-
-            Assert.NotNull(categoryRepository);
-
-            Cleanup();
+            Assert.IsNotNull(categoryRepository);
         }
 
-        [Fact]
+        [TestMethod]
         public void RepoCanCreateCategories()
         {
-            Initialize();
 
             List<Category> ListOfCategories = new List<Category>();
-
-            ConnectMocksToDataStore(ListOfCategories);
-
+            
             Category TestCategory = new Category();
             TestCategory.Name = "Test Category";
             TestCategory.CategoryId = 0;
 
+            ListOfCategories.Add(TestCategory);
+
+            ConnectMocksToDataStore(ListOfCategories);
+
             mock_category_set.Setup(a => a.Add(It.IsAny<Category>()))
-                .Callback((Category x) => ListOfCategories.Add(x))
-                .Returns(mock_category_set.Object.Where(a => a.Name == "Test Category").Single());
+                .Callback((Category x) => ListOfCategories.Add(x));
 
-            categoryRepository.Create(TestCategory);
+            Category CreatedCategory = new Category();
+            CreatedCategory.Name = "Created Category";
+            CreatedCategory.CategoryId = 1;
 
-            Category ShouldBeTestCategory = categoryRepository.GetById(TestCategory.CategoryId);
+            categoryRepository.Create(CreatedCategory);
 
-            Assert.NotNull(ShouldBeTestCategory);
-            Assert.Equal(ShouldBeTestCategory, TestCategory);
+            Category ShouldBeCreatedCategory = categoryRepository.GetById(CreatedCategory.CategoryId);
 
-            Cleanup();
+            Assert.IsNotNull(ShouldBeCreatedCategory);
+            Assert.AreEqual(ShouldBeCreatedCategory, CreatedCategory);
         }
     }
 }

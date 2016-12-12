@@ -11,7 +11,7 @@ namespace Cape.Data
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base(System.Environment.GetEnvironmentVariable("ConnectionString"), throwIfV1Schema: false)
         {
         }
         public static ApplicationDbContext Create()

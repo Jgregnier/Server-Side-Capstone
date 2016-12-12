@@ -16,6 +16,7 @@ namespace Cape.Models
         public string LastName { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(
+
         UserManager<ApplicationUser> manager)
         {
             var userIdentity =

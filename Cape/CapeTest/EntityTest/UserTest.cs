@@ -1,11 +1,12 @@
-﻿using Xunit;
-using Cape.Models;
+﻿using Cape.Models;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Cape.Test.EntitiesTest
 {
+    [TestClass]
     public class UserTest
     {
-        [Fact]
+        [TestMethod]
         public void UsersCanBeMade()
         {
             ApplicationUser user = new ApplicationUser();
@@ -14,10 +15,10 @@ namespace Cape.Test.EntitiesTest
             user.Email = "User Email Test";
             user.PasswordHash = "User PasswordHash Test";
 
-            Assert.Equal(user.FirstName, "User FirstName Test");
-            Assert.Equal(user.LastName, "User LastName Test");
-            Assert.Equal(user.Email, "User Email Test");
-            Assert.Equal(user.PasswordHash, "User PasswordHash Test");
+            Assert.AreEqual(user.FirstName, "User FirstName Test");
+            Assert.AreEqual(user.LastName, "User LastName Test");
+            Assert.AreEqual(user.Email, "User Email Test");
+            Assert.AreEqual(user.PasswordHash, "User PasswordHash Test");
         }
     }
 }

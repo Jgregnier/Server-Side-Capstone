@@ -1,12 +1,13 @@
 ﻿using System;
-using Xunit;
 using Cape.Models;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Cape.Test.EntitiesTest
 {
+    [TestClass]
     public class TransactionTest
     {
-        [Fact]
+        [TestMethod]
         public void TransactionsCanBeMade()
         {
             Report report = new Report();
@@ -25,12 +26,12 @@ namespace Cape.Test.EntitiesTest
             transaction.Category = category;
             transaction.Report = report;
 
-            Assert.Equal(transaction.Name, "Transaction Name Test");
-            Assert.Equal(transaction.TransactionId, 0);
-            Assert.Equal(transaction.Amount, -35.15);
+            Assert.AreEqual(transaction.Name, "Transaction Name Test");
+            Assert.AreEqual(transaction.TransactionId, 0);
+            Assert.AreEqual(transaction.Amount, -35.15);
 
-            Assert.Equal(transaction.Category, category);
-            Assert.Equal(transaction.Report, report);
+            Assert.AreEqual(transaction.Category, category);
+            Assert.AreEqual(transaction.Report, report);
         }
     }
 }
