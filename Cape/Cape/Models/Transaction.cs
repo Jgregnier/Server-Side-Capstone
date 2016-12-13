@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Cape.Models
@@ -8,9 +9,12 @@ namespace Cape.Models
         public int TransactionId { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public string Description { get; set; }
         [Required]
         public double Amount { get; set; }
+
+        [Required]
+        public DateTime Date { get; set; }
 
         [Required]
         public int ReportId {get;set;}

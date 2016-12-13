@@ -20,15 +20,17 @@ namespace Cape.Test.EntitiesTest
             category.CategoryId = 0;
 
             Transaction transaction = new Transaction();
-            transaction.Name = "Transaction Name Test";
+            transaction.Description = "Transaction Name Test";
             transaction.Amount = -35.15;
             transaction.TransactionId = 0;
+            transaction.Date = DateTime.Today;
             transaction.Category = category;
             transaction.Report = report;
 
-            Assert.AreEqual(transaction.Name, "Transaction Name Test");
+            Assert.AreEqual(transaction.Description, "Transaction Name Test");
             Assert.AreEqual(transaction.TransactionId, 0);
             Assert.AreEqual(transaction.Amount, -35.15);
+            Assert.AreEqual(transaction.Date, DateTime.Today);
 
             Assert.AreEqual(transaction.Category, category);
             Assert.AreEqual(transaction.Report, report);

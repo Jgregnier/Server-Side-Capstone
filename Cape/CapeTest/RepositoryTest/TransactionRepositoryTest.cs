@@ -57,7 +57,7 @@ namespace Cape.Test.RepositoryTest
             List<Transaction> ListOfTransactions = new List<Transaction>();
 
             Transaction TestTransaction = new Transaction();
-            TestTransaction.Name = "Test Transaction";
+            TestTransaction.Description = "Test Transaction";
             TestTransaction.TransactionId = 0;
             TestTransaction.Amount = 20.00;
 
@@ -69,7 +69,7 @@ namespace Cape.Test.RepositoryTest
                 .Callback((Transaction x) => ListOfTransactions.Add(x));
 
             Transaction CreatedTransaction = new Transaction();
-            CreatedTransaction.Name = "Created Transaction";
+            CreatedTransaction.Description = "Created Transaction";
             CreatedTransaction.TransactionId = 1;
 
             transactionRepository.Create(CreatedTransaction);
@@ -86,7 +86,7 @@ namespace Cape.Test.RepositoryTest
             List<Transaction> ListOfTransactions = new List<Transaction>();
 
             Transaction TestTransaction = new Transaction();
-            TestTransaction.Name = "Test Transaction";
+            TestTransaction.Description= "Test Transaction";
             TestTransaction.TransactionId = 0;
             TestTransaction.Amount = 300.00;
 
@@ -98,20 +98,20 @@ namespace Cape.Test.RepositoryTest
                 .Callback((Transaction x) => ListOfTransactions.Add(x));
 
             Transaction CreatedTransaction = new Transaction();
-            CreatedTransaction.Name = "Created Transaction";
+            CreatedTransaction.Description = "Created Transaction";
             CreatedTransaction.TransactionId = 1;
             CreatedTransaction.Amount = 200.00;
 
             transactionRepository.Create(CreatedTransaction);
 
-            CreatedTransaction.Name = "Updated Transaction Name";
+            CreatedTransaction.Description = "Updated Transaction Name";
             CreatedTransaction.Amount = 100.00;
 
             transactionRepository.Update(CreatedTransaction);
 
             Transaction updatedTransaction = transactionRepository.GetById(CreatedTransaction.TransactionId);
 
-            Assert.AreEqual(updatedTransaction.Name, "Updated Transaction Name");
+            Assert.AreEqual(updatedTransaction.Description, "Updated Transaction Name");
             Assert.AreEqual(updatedTransaction.Amount, 100.00);
         }
     }
