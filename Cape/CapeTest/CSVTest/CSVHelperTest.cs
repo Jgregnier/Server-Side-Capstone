@@ -4,6 +4,7 @@ using CsvHelper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using Cape.Models;
+using Cape.Adapters;
 
 namespace Cape.Test.CSVTest
 {
@@ -11,26 +12,16 @@ namespace Cape.Test.CSVTest
     public class CSVHelperTest
     {
         [TestMethod]
-        public void CSVHelperExists()
+        public void CSVHelperExistsAndCanProcessCSVFiles()
         {
             var sr = new StreamReader(@"C:/Capstone/Cape/CapeTest/TestData/MOCK_DATA.csv");
-            
+
             //MOCK_DATA has 50 fake transactions
 
-            var reader = new CsvReader(sr);
+            CSVUploader reader = new CSVUploader();
 
-            List<Transaction> TransactionList = new List<Transaction>();
+            ICollection<Transaction> TransactionList = reader.Upload(sr);
 
-            while(reader.Read())
-            {
-                TransactionList.Add(new Transaction
-                {
-                    TransactionId = 1,
-                    Date = Convert.ToDateTime(reader.GetField<string>(0)),
-                    Description = reader.GetField<string>(1),
-                    Amount = Convert.ToDouble(reader.GetField<string>(2))
-                });
-            }
             Assert.IsNotNull(TransactionList);
 
             Assert.AreEqual(TransactionList.Count, 50);

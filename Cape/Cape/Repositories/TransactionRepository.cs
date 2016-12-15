@@ -2,6 +2,8 @@
 using Cape.Models;
 using Cape.Data;
 using Cape.Interfaces;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Cape.Repositories
 {
@@ -21,6 +23,16 @@ namespace Cape.Repositories
             context.SaveChanges();
         }
 
+        public void AddNewTransactions(ICollection<Transaction> NewTransactions)
+        {
+            foreach(Transaction transaction in NewTransactions)
+            {
+                context.Transaction.Add(transaction);
+            }
+
+            context.SaveChanges();
+        }
+
         public Transaction GetById(int transactionId)
         {
             Transaction SelectedTransaction = context.Transaction.Single(t => t.TransactionId == transactionId);
@@ -35,6 +47,13 @@ namespace Cape.Repositories
             context.ChangeTracker.DetectChanges();
 
             context.SaveChanges();
+        }
+
+        public ICollection<Transaction> GetByReportId(int reportId)
+        {
+            List<Transaction> ListOfTransactionsByReportId = context.Transaction.Where(t => t.ReportId == reportId).ToList();
+
+            return ListOfTransactionsByReportId;
         }
     }
 }

@@ -1,7 +1,10 @@
-﻿using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
+﻿using Cape.Repositories;
+using System.IO;
+using Cape.Adapters;
 using Cape.Models;
-using Cape.Repositories;
+using System.Collections.Generic;
+using System.Web.Mvc;
+using Cape.Interfaces;
 
 namespace Cape.Controllers
 {
@@ -10,12 +13,15 @@ namespace Cape.Controllers
         public CapeController()
         { }
 
-        public CapeController(UserRepository _repository)
+        public CapeController(IUserRepository _userRepository, ITransactionRepository _transactionRepository)
         {
-            userRepositry = _repository;
+            userRepositry = _userRepository;
+            transactionRepository = _transactionRepository;
         }
 
-        private UserRepository userRepositry;
+        private IUserRepository userRepositry;
+
+        private ITransactionRepository transactionRepository;
 
         public ActionResult Index()
         {
@@ -25,15 +31,29 @@ namespace Cape.Controllers
         [Authorize]
         public ActionResult Reports()
         {
-
             return View();
         }
 
+        [HttpGet]
         [Authorize]
         public ActionResult Upload()
         {
-
             return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult UploadCSV()
+        {
+            StreamReader sr = new StreamReader(Request.Files[0].InputStream);
+
+            var Csv = new CSVUploader();
+
+            ICollection<Transaction> NewTransactions = Csv.Upload(sr);
+
+            transactionRepository.AddNewTransactions(NewTransactions);
+
+            return RedirectToAction("Reports");
         }
     }
 }

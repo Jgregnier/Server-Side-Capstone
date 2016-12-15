@@ -2,7 +2,7 @@
 
 namespace Cape.Interfaces
 {
-    interface IReportRepository
+    public interface IReportRepository
     {
         void Create(Report obj);
         Report GetById(int reportId);

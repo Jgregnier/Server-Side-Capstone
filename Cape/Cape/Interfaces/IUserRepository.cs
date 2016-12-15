@@ -3,7 +3,7 @@ using Cape.Models;
 
 namespace Cape.Interfaces
 {
-    interface IUserRepository
+    public interface IUserRepository
     {
         void Create(ApplicationUser obj);
         ApplicationUser GetById(string UserId);

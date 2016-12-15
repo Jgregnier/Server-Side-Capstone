@@ -10,6 +10,7 @@ namespace Cape.Models
 
         [Required]
         public string Description { get; set; }
+
         [Required]
         public double Amount { get; set; }
 
