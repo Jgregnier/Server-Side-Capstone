@@ -1,11 +1,14 @@
 ﻿using Cape.Models;
+using System.Collections.Generic;
 
 namespace Cape.Interfaces
 {
-    interface ITransactionRepository
+    public interface ITransactionRepository
     {
         void Create(Transaction obj);
+        void AddNewTransactions(ICollection<Transaction> NewTransactions);
         void Update(Transaction obj);
         Transaction GetById(int transactionId);
+        ICollection<Transaction> GetByReportId(int reportId);
     }
 }

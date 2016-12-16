@@ -114,5 +114,47 @@ namespace Cape.Test.RepositoryTest
             Assert.AreEqual(updatedTransaction.Description, "Updated Transaction Name");
             Assert.AreEqual(updatedTransaction.Amount, 100.00);
         }
+
+        [TestMethod]
+        public void RepoCanSaveACollectionOfTransactions ()
+        {
+            List<Transaction> ListOfTransactions = new List<Transaction>();
+
+            ConnectMocksToDataStore(ListOfTransactions);
+
+            mock_transaction_set.Setup(a => a.Add(It.IsAny<Transaction>()))
+                .Callback((Transaction x) => ListOfTransactions.Add(x));
+
+            //Create two new transactions to save as a collection
+            Transaction CreatedTransaction = new Transaction();
+            CreatedTransaction.Description = "Created Transaction";
+            CreatedTransaction.TransactionId = 1;
+            CreatedTransaction.Amount = 00.00;
+            CreatedTransaction.ReportId = 1;
+
+            Transaction CreatedTransaction1 = new Transaction();
+            CreatedTransaction1.Description = "Created Transaction1";
+            CreatedTransaction1.TransactionId = 1;
+            CreatedTransaction1.Amount = 100.00;
+            CreatedTransaction1.ReportId = 1;
+
+            //Add them both to the collection
+            List<Transaction> ListOfNewTransactions = new List<Transaction>();
+
+            ListOfNewTransactions.Add(CreatedTransaction);
+            ListOfNewTransactions.Add(CreatedTransaction1);
+
+            transactionRepository.AddNewTransactions(ListOfNewTransactions);
+
+            ICollection<Transaction> CollectionOfNewTransactions = transactionRepository.GetByReportId(1);
+
+            List<Transaction> ShouldBeListOfNewTransactions = CollectionOfNewTransactions.ToList();
+
+            Assert.IsNotNull(ShouldBeListOfNewTransactions);
+ 
+            Assert.AreEqual(ShouldBeListOfNewTransactions[0], ListOfNewTransactions[0]);
+
+            Assert.AreEqual(ShouldBeListOfNewTransactions[1], ListOfNewTransactions[1]);
+        }
     }
 }
