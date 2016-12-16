@@ -17,7 +17,6 @@ namespace Cape.Models
         [Required]
         public DateTime Date { get; set; }
 
-        [Required]
         public int ReportId {get;set;}
 
         public Report Report { get; set; }

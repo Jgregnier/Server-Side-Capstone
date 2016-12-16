@@ -1,17 +1,28 @@
-﻿using Cape.Repositories;
-using System.IO;
+﻿using System.IO;
 using Cape.Adapters;
 using Cape.Models;
 using System.Collections.Generic;
+using System.Web;
 using System.Web.Mvc;
 using Cape.Interfaces;
+using Cape.DependancyResolver;
+using Ninject;
 
 namespace Cape.Controllers
 {
     public class CapeController : Controller
     {
         public CapeController()
-        { }
+        {
+            //var container = (DependancyContainer)HttpContext.Current.Application["container"];
+            //var container = HttpContext.Current.Application["container"];
+            //DependancyContainer container = HttpContext.Application["container"];
+            //var container = new DependancyContainer();
+
+            //this.userRepositry = container.ResolveUserRepository();
+
+            //this.transactionRepository = container.ResolveTransactionRepository();
+        }
 
         public CapeController(IUserRepository _userRepository, ITransactionRepository _transactionRepository)
         {

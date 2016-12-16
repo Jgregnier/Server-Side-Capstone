@@ -3,6 +3,7 @@ using Cape.Models;
 using Cape.Data;
 using Cape.Interfaces;
 using System;
+using Microsoft.Practices.Unity;
 
 namespace Cape.Repositories
 {

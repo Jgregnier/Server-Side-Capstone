@@ -4,11 +4,13 @@ using Cape.Data;
 using Cape.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.Practices.Unity;
 
 namespace Cape.Repositories
 {
     public class TransactionRepository : ITransactionRepository
     {
+
         private readonly ApplicationDbContext context;
 
         public TransactionRepository(TransactionRepositoryConnection connection)
@@ -27,6 +29,7 @@ namespace Cape.Repositories
         {
             foreach(Transaction transaction in NewTransactions)
             {
+                transaction.ReportId = 1;
                 context.Transaction.Add(transaction);
             }
 
