@@ -346,7 +346,7 @@
     <Compile Include="Data\ReportRepositoryConnection.cs" />
     <Compile Include="Data\TransactionRepositoryConnection.cs" />
     <Compile Include="Data\UserRepositoryConnection.cs" />
-    <Compile Include="DependancyResolver\DependancyContainer.cs" />
+    <Compile Include="DependancyResolver\DependancyResolver.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

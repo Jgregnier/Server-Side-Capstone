@@ -2,9 +2,7 @@
 using Cape.Models;
 using Cape.Data;
 using Cape.Interfaces;
-using System.Collections;
 using System.Collections.Generic;
-using Microsoft.Practices.Unity;
 
 namespace Cape.Repositories
 {

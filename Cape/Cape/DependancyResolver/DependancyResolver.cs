@@ -7,7 +7,7 @@ using Cape.Repositories;
 
 namespace Cape.DependancyResolver
 {
-    public class DependancyContainer : DefaultControllerFactory
+    public class DependancyResolver : DefaultControllerFactory
     {
         private IKernel kernel = new StandardKernel(new NinjectBindingDefinitions());
 
@@ -31,6 +31,5 @@ namespace Cape.DependancyResolver
                     .To(typeof(UserRepository));
             }
         }
-
     }
 }

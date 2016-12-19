@@ -1,12 +1,6 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Ninject;
-using System.Reflection;
-using Cape.Interfaces;
-using Cape.Controllers;
-using Cape.DependancyResolver;
 
 namespace Cape
 {
@@ -19,7 +13,7 @@ namespace Cape
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            ControllerBuilder.Current.SetControllerFactory(new DependancyContainer());
+            ControllerBuilder.Current.SetControllerFactory(new DependancyResolver.DependancyResolver());
         }
     }
 }
