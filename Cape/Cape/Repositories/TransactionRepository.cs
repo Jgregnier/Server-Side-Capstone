@@ -23,11 +23,12 @@ namespace Cape.Repositories
             context.SaveChanges();
         }
 
-        public void AddNewTransactions(ICollection<Transaction> NewTransactions)
+        public void AddNewTransactions(ICollection<Transaction> NewTransactions, int newReportId)
         {
             foreach(Transaction transaction in NewTransactions)
             {
-                transaction.ReportId = 1;
+                transaction.ReportId = newReportId;
+                transaction.CategoryId = 1;
                 context.Transaction.Add(transaction);
             }
 

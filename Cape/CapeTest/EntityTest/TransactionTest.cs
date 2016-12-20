@@ -11,7 +11,6 @@ namespace Cape.Test.EntitiesTest
         public void TransactionsCanBeMade()
         {
             Report report = new Report();
-            report.Name = "Report Name Test";
             report.ReportId = 0;
             report.UploadDate = DateTime.Today;
 

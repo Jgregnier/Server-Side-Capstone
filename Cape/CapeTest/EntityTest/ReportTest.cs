@@ -11,12 +11,8 @@ namespace Cape.Test.EntitiesTest
         public void ReportsCanBeMade()
         {
             Report report = new Report();
-            report.Name = "Report Name Test";
-            report.ReportId = 0;
             report.UploadDate = DateTime.Today;
 
-            Assert.AreEqual(report.Name, "Report Name Test");
-            Assert.AreEqual(report.ReportId, 0);
             Assert.AreEqual(report.UploadDate, DateTime.Today);
         }
     }

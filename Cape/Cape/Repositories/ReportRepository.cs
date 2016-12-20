@@ -3,6 +3,7 @@ using Cape.Models;
 using Cape.Data;
 using Cape.Interfaces;
 using System;
+using System.Threading.Tasks;
 
 namespace Cape.Repositories
 {
@@ -15,11 +16,19 @@ namespace Cape.Repositories
             context = connection.AppContext;
         }
 
-        public void Create(Report obj)
+        public int Create(ApplicationUser user)
         {
-            context.Report.Add(obj);
+            Report newReport = new Report();
 
-            context.SaveChangesAsync();
+            newReport.User = user;
+
+            newReport.UploadDate = DateTime.Now;
+
+            context.Report.Add(newReport);
+
+            context.SaveChanges();
+
+            return newReport.ReportId;
         }
 
         public Report GetById(int reportId)

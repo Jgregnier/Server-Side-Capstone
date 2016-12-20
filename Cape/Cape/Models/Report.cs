@@ -10,9 +10,6 @@ namespace Cape.Models
         public int ReportId { get; set; }
 
         [Required]
-        public string Name { get; set; }
-
-        [Required]
         public DateTime UploadDate { get; set; }
 
         public ICollection<Transaction> Transactions;

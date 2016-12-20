@@ -6,6 +6,8 @@ using Cape.Data;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using Microsoft.AspNet.Identity;
 
 namespace Cape.Test.RepositoryTest
 {
@@ -56,27 +58,22 @@ namespace Cape.Test.RepositoryTest
 
             List<Report> ListOfReports = new List<Report>();
 
-            Report TestReport = new Report();
-            TestReport.Name = "Test Report";
-            TestReport.ReportId = 0;
-
-            ListOfReports.Add(TestReport);
 
             ConnectMocksToDataStore(ListOfReports);
 
             mock_report_set.Setup(a => a.Add(It.IsAny<Report>()))
                 .Callback((Report x) => ListOfReports.Add(x));
 
-            Report CreatedReport = new Report();
-            CreatedReport.Name = "Created Report";
-            CreatedReport.ReportId = 1;
+            ApplicationUser fakeUser = new ApplicationUser();
+            fakeUser.FirstName = "Test First Name";
+            fakeUser.LastName = "Test Last Name";
 
-            reportRepository.Create(CreatedReport);
+            int CreatedReportId = reportRepository.Create(fakeUser);
 
-            Report ShouldBeCreatedReport = reportRepository.GetById(CreatedReport.ReportId);
+            Report ShouldBeCreatedReport = reportRepository.GetById(CreatedReportId);
 
             Assert.IsNotNull(ShouldBeCreatedReport);
-            Assert.AreEqual(ShouldBeCreatedReport, CreatedReport);
+            Assert.AreEqual(ShouldBeCreatedReport.ReportId, CreatedReportId);
         }
 
         [TestMethod]
@@ -84,32 +81,27 @@ namespace Cape.Test.RepositoryTest
         {
             List<Report> ListOfReports = new List<Report>();
 
-            Report TestReport = new Report();
-            TestReport.Name = "Test Report";
-            TestReport.ReportId = 0;
-
-            ListOfReports.Add(TestReport);
-
             ConnectMocksToDataStore(ListOfReports);
 
             mock_report_set.Setup(a => a.Add(It.IsAny<Report>()))
                 .Callback((Report x) => ListOfReports.Add(x));
 
-            Report CreatedReport = new Report();
-            CreatedReport.Name = "Created Report";
-            CreatedReport.ReportId = 1;
+            ApplicationUser fakeUser = new ApplicationUser();
+            fakeUser.FirstName = "Test First Name";
+            fakeUser.LastName = "Test Last Name";
 
-            reportRepository.Create(CreatedReport);
+            int CreatedReportId = reportRepository.Create(fakeUser);
 
-            CreatedReport.Name = "Updated Report Name";
-            CreatedReport.ReportId = 100;
+            Report CreatedReport = reportRepository.GetById(CreatedReportId);
+
+            CreatedReport.UploadDate = new DateTime(2015, 11, 21);
 
             reportRepository.Update(CreatedReport);
 
             Report updatedReport = reportRepository.GetById(CreatedReport.ReportId);
 
-            Assert.AreEqual(updatedReport.Name, "Updated Report Name");
-            Assert.AreEqual(updatedReport.ReportId, 100);
+            Assert.AreEqual(updatedReport.ReportId, CreatedReportId);
+            Assert.AreEqual(updatedReport.UploadDate, new DateTime(2015, 11, 21));
         }
     }
 }

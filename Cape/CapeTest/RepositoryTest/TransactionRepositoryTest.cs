@@ -144,7 +144,7 @@ namespace Cape.Test.RepositoryTest
             ListOfNewTransactions.Add(CreatedTransaction);
             ListOfNewTransactions.Add(CreatedTransaction1);
 
-            transactionRepository.AddNewTransactions(ListOfNewTransactions);
+            transactionRepository.AddNewTransactions(ListOfNewTransactions, 1);
 
             ICollection<Transaction> CollectionOfNewTransactions = transactionRepository.GetByReportId(1);
 

@@ -368,6 +368,10 @@
     <Compile Include="Migrations\201612161833394_ReportIdChange.Designer.cs">
       <DependentUpon>201612161833394_ReportIdChange.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612192153455_ChangedReportModel.cs" />
+    <Compile Include="Migrations\201612192153455_ChangedReportModel.Designer.cs">
+      <DependentUpon>201612192153455_ChangedReportModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -472,6 +476,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612161833394_ReportIdChange.resx">
       <DependentUpon>201612161833394_ReportIdChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612192153455_ChangedReportModel.resx">
+      <DependentUpon>201612192153455_ChangedReportModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
