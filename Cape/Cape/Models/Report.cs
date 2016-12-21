@@ -12,8 +12,9 @@ namespace Cape.Models
         [Required]
         public DateTime UploadDate { get; set; }
 
-        public ICollection<Transaction> Transactions;
+        public ICollection<Transaction> Transactions { get; set; }
 
-        public ApplicationUser User;
+        public virtual ApplicationUser User { get; set; }
+
     }
 }

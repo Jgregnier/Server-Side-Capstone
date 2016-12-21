@@ -77,6 +77,35 @@ namespace Cape.Test.RepositoryTest
         }
 
         [TestMethod]
+        public void RepoCanGetAllReportsByUser()
+        {
+            List<Report> ListOfReports = new List<Report>();
+
+            ConnectMocksToDataStore(ListOfReports);
+
+            mock_report_set.Setup(a => a.Add(It.IsAny<Report>()))
+                .Callback((Report x) => ListOfReports.Add(x));
+
+            ApplicationUser fakeUser = new ApplicationUser();
+            fakeUser.FirstName = "Test First Name";
+            fakeUser.LastName = "Test Last Name";
+            fakeUser.Id = "Test Guid";
+
+            int FirstFakeReportId = reportRepository.Create(fakeUser);
+
+            int SecondFakeReportId = reportRepository.Create(fakeUser);
+
+            List<Report> shouldBeBothOfTheCreatedReports = reportRepository.GetByUser(fakeUser.Id);
+
+            Assert.AreEqual(FirstFakeReportId, shouldBeBothOfTheCreatedReports[0].ReportId);
+            Assert.AreEqual(shouldBeBothOfTheCreatedReports[0].User.Id, "Test Guid");
+
+            Assert.AreEqual(SecondFakeReportId, shouldBeBothOfTheCreatedReports[1].ReportId);
+            Assert.AreEqual(shouldBeBothOfTheCreatedReports[1].User.Id, "Test Guid");
+
+        }
+
+        [TestMethod]
         public void ReportRepoCanUpdateReports()
         {
             List<Report> ListOfReports = new List<Report>();

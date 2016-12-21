@@ -372,10 +372,19 @@
     <Compile Include="Migrations\201612192153455_ChangedReportModel.Designer.cs">
       <DependentUpon>201612192153455_ChangedReportModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612211823363_GetSetReportUser.cs" />
+    <Compile Include="Migrations\201612211823363_GetSetReportUser.Designer.cs">
+      <DependentUpon>201612211823363_GetSetReportUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612212000028_UserNowVirtualOnReport.cs" />
+    <Compile Include="Migrations\201612212000028_UserNowVirtualOnReport.Designer.cs">
+      <DependentUpon>201612212000028_UserNowVirtualOnReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="ViewModels\AllReportsViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\Report.cs" />
@@ -479,6 +488,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612192153455_ChangedReportModel.resx">
       <DependentUpon>201612192153455_ChangedReportModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612211823363_GetSetReportUser.resx">
+      <DependentUpon>201612211823363_GetSetReportUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612212000028_UserNowVirtualOnReport.resx">
+      <DependentUpon>201612212000028_UserNowVirtualOnReport.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

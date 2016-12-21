@@ -1,12 +1,14 @@
-﻿using System.IO;
-using Cape.Adapters;
+﻿using Cape.Adapters;
 using Cape.Models;
+using Cape.Interfaces;
+using Cape.ViewModels;
+using System.IO;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using Cape.Interfaces;
 using Microsoft.AspNet.Identity;
 using System.Web;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Cape.Controllers
 {
@@ -18,14 +20,16 @@ namespace Cape.Controllers
       
         public CapeController( IUserRepository _userRepository, ITransactionRepository _transactionRepository, IReportRepository _reportRepository)
         {
-            userRepositry = _userRepository;
+            userRepository = _userRepository;
             transactionRepository = _transactionRepository;
             reportRepository = _reportRepository;
         }
 
-        ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+        //ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
 
-        private IUserRepository userRepositry;
+        string userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+
+        private IUserRepository userRepository;
 
         private ITransactionRepository transactionRepository;
 
@@ -39,7 +43,11 @@ namespace Cape.Controllers
         [Authorize]
         public ActionResult Reports()
         {
-            return View();
+            AllReportsViewModel model = new AllReportsViewModel();
+
+            model.AllReports = reportRepository.GetByUser(userId);
+            
+            return View(model);
         }
 
         [HttpGet]
@@ -53,6 +61,8 @@ namespace Cape.Controllers
         [Authorize]
         public ActionResult UploadCSV()
         {
+
+            ApplicationUser user = userRepository.GetById(userId);
 
             int newReportId = reportRepository.Create(user);
 

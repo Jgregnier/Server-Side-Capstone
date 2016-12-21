@@ -1,7 +1,8 @@
 ﻿@{
     ViewBag.Title = "Upload";
 }
-<form id="UploadForm" asp-action="UploadCSV" asp-controller="Cape">
+
+<form id="UploadForm" action="UploadCSV" method="post">
     <input class="form-control" type="file" name="UploadFile" id="UploadFile" />
 
     <input type="submit" value="Submit" class="btn btn-default" />

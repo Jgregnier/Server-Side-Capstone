@@ -4,6 +4,8 @@ using Cape.Data;
 using Cape.Interfaces;
 using System;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace Cape.Repositories
 {
@@ -18,13 +20,17 @@ namespace Cape.Repositories
 
         public int Create(ApplicationUser user)
         {
-            Report newReport = new Report();
+            //Report newReport = new Report();
 
-            newReport.User = user;
+            //newReport.User = user;
 
-            newReport.UploadDate = DateTime.Now;
+            //newReport.UploadDate = DateTime.Now;
 
-            context.Report.Add(newReport);
+            Report newReport = context.Report.Add(new Report
+            { 
+                UploadDate = DateTime.Now,
+                User = user
+            });
 
             context.SaveChanges();
 
@@ -36,6 +42,31 @@ namespace Cape.Repositories
             Report selectedReport = context.Report.Single(r => r.ReportId == reportId);
 
             return selectedReport;
+        }
+
+        public List<Report> GetByUser (string UserId)
+        {
+
+            List<Report> listOfReports = context.Report.Include(r => r.User).Where(r => r.User.Id == UserId).ToList();
+
+            //List<Report> listOfReports = context.Report.Include(r => r.Transactions).ToList();
+
+            //IEnumerable<Report> listOfReports =
+            //    from report in context.Report
+            //    join user in context.Users on report.User equals user
+            //    select report;
+
+            //var qry = (
+            //           from r in context.Report
+            //           join u in context.Users on r.User.Id equals u.Id
+            //           select r).Include("User").ToList();
+
+            //List<Report> listOfReports = qry.Where(r => r.User.Id == UserId).ToList();
+
+            //group new Report { ReportId = report.ReportId, UploadDate = report.UploadDate, User = user};
+
+
+            return listOfReports;
         }
 
         public void Update(Report obj)
