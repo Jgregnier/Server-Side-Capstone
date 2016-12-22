@@ -4,6 +4,7 @@ using Cape.Data;
 using Cape.Interfaces;
 using System;
 using Microsoft.Practices.Unity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cape.Repositories
 {

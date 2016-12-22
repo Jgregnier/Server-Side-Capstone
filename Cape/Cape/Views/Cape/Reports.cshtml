@@ -1,11 +1,11 @@
 ﻿@model Cape.ViewModels.AllReportsViewModel
 @{
-    ViewBag.Title = "About";
+    ViewBag.Title = "Reports";
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
 @foreach(var report in Model.AllReports)
 {
-    <p>@Html.DisplayFor(modelItem => report.UploadDate)</p>
+    <a href=@("TransactionsInReport?id=" + report.ReportId)><p>@Html.DisplayFor(modelItem => report.UploadDate)</p></a>
 }

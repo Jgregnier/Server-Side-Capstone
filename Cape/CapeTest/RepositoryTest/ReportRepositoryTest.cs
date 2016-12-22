@@ -67,8 +67,9 @@ namespace Cape.Test.RepositoryTest
             ApplicationUser fakeUser = new ApplicationUser();
             fakeUser.FirstName = "Test First Name";
             fakeUser.LastName = "Test Last Name";
+            fakeUser.Id = "Test Guid";
 
-            int CreatedReportId = reportRepository.Create(fakeUser);
+            int CreatedReportId = reportRepository.Create(fakeUser.Id);
 
             Report ShouldBeCreatedReport = reportRepository.GetById(CreatedReportId);
 
@@ -91,17 +92,17 @@ namespace Cape.Test.RepositoryTest
             fakeUser.LastName = "Test Last Name";
             fakeUser.Id = "Test Guid";
 
-            int FirstFakeReportId = reportRepository.Create(fakeUser);
+            int FirstFakeReportId = reportRepository.Create(fakeUser.Id);
 
-            int SecondFakeReportId = reportRepository.Create(fakeUser);
+            int SecondFakeReportId = reportRepository.Create(fakeUser.Id);
 
             List<Report> shouldBeBothOfTheCreatedReports = reportRepository.GetByUser(fakeUser.Id);
 
             Assert.AreEqual(FirstFakeReportId, shouldBeBothOfTheCreatedReports[0].ReportId);
-            Assert.AreEqual(shouldBeBothOfTheCreatedReports[0].User.Id, "Test Guid");
+            Assert.AreEqual(shouldBeBothOfTheCreatedReports[0].UserId, "Test Guid");
 
             Assert.AreEqual(SecondFakeReportId, shouldBeBothOfTheCreatedReports[1].ReportId);
-            Assert.AreEqual(shouldBeBothOfTheCreatedReports[1].User.Id, "Test Guid");
+            Assert.AreEqual(shouldBeBothOfTheCreatedReports[1].UserId, "Test Guid");
 
         }
 
@@ -118,8 +119,9 @@ namespace Cape.Test.RepositoryTest
             ApplicationUser fakeUser = new ApplicationUser();
             fakeUser.FirstName = "Test First Name";
             fakeUser.LastName = "Test Last Name";
+            fakeUser.Id = "Test Guid";
 
-            int CreatedReportId = reportRepository.Create(fakeUser);
+            int CreatedReportId = reportRepository.Create(fakeUser.Id);
 
             Report CreatedReport = reportRepository.GetById(CreatedReportId);
 

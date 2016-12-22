@@ -1,0 +1,14 @@
+﻿@model Cape.ViewModels.TransactionsListViewModel
+@{
+    ViewBag.Title = "Transactions in this report";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+@foreach (var transaction in Model.ListOfTransactions)
+{
+    <p>@Html.DisplayFor(modelItem => transaction.Amount) 
+       @Html.DisplayFor(modelItem => transaction.Description)
+       @Html.DisplayFor(modelItem => transaction.Date)
+       @Html.DisplayFor(modelItem => transaction.Category.Name)</p>
+}

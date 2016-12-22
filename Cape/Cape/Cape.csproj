@@ -380,6 +380,10 @@
     <Compile Include="Migrations\201612212000028_UserNowVirtualOnReport.Designer.cs">
       <DependentUpon>201612212000028_UserNowVirtualOnReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612212216102_ChaingReportModelAgain.cs" />
+    <Compile Include="Migrations\201612212216102_ChaingReportModelAgain.Designer.cs">
+      <DependentUpon>201612212216102_ChaingReportModelAgain.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -395,6 +399,7 @@
     <Compile Include="Repositories\TransactionRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\TransactionsListViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -471,6 +476,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Cape\TransactionsInReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -494,6 +500,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612212000028_UserNowVirtualOnReport.resx">
       <DependentUpon>201612212000028_UserNowVirtualOnReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612212216102_ChaingReportModelAgain.resx">
+      <DependentUpon>201612212216102_ChaingReportModelAgain.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
