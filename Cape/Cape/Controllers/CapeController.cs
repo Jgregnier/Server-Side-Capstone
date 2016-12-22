@@ -6,9 +6,6 @@ using System.IO;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using System.Web;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Cape.Controllers
 {
@@ -40,12 +37,24 @@ namespace Cape.Controllers
             return View();
         }
 
+        [HttpGet]
         [Authorize]
         public ActionResult Reports()
         {
             AllReportsViewModel model = new AllReportsViewModel();
 
             model.AllReports = reportRepository.GetByUser(userId);
+            
+            return View(model);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult TransactionsInReport([System.Web.Http.FromUri]int id)
+        {
+            TransactionsListViewModel model = new TransactionsListViewModel();
+
+            model.ListOfTransactions = transactionRepository.GetByReportId(id);
             
             return View(model);
         }
@@ -61,10 +70,7 @@ namespace Cape.Controllers
         [Authorize]
         public ActionResult UploadCSV()
         {
-
-            ApplicationUser user = userRepository.GetById(userId);
-
-            int newReportId = reportRepository.Create(user);
+            int newReportId = reportRepository.Create(userId);
 
             StreamReader sr = new StreamReader(Request.Files[0].InputStream);
 

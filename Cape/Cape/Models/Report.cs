@@ -14,7 +14,7 @@ namespace Cape.Models
 
         public ICollection<Transaction> Transactions { get; set; }
 
-        public virtual ApplicationUser User { get; set; }
+        public string UserId { get; set; }
 
     }
 }

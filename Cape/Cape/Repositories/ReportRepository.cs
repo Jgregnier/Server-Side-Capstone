@@ -18,19 +18,15 @@ namespace Cape.Repositories
             context = connection.AppContext;
         }
 
-        public int Create(ApplicationUser user)
+        public int Create(string UserId)
         {
-            //Report newReport = new Report();
+            Report newReport = new Report();
 
-            //newReport.User = user;
+            newReport.UserId = UserId;
 
-            //newReport.UploadDate = DateTime.Now;
+            newReport.UploadDate = DateTime.Now;
 
-            Report newReport = context.Report.Add(new Report
-            { 
-                UploadDate = DateTime.Now,
-                User = user
-            });
+            context.Report.Add(newReport);
 
             context.SaveChanges();
 
@@ -47,7 +43,7 @@ namespace Cape.Repositories
         public List<Report> GetByUser (string UserId)
         {
 
-            List<Report> listOfReports = context.Report.Include(r => r.User).Where(r => r.User.Id == UserId).ToList();
+            List<Report> listOfReports = context.Report.Where(r => r.UserId == UserId).ToList();
 
             //List<Report> listOfReports = context.Report.Include(r => r.Transactions).ToList();
 

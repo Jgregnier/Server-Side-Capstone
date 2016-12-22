@@ -6,7 +6,7 @@ namespace Cape.Interfaces
 {
     public interface IReportRepository
     {
-        int Create(ApplicationUser user);
+        int Create(string UserId);
 
         Report GetById(int reportId);
 
