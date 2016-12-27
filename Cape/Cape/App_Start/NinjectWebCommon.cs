@@ -67,6 +67,10 @@ namespace Cape.App_Start
             kernel.Bind<IUserRepository>().To<UserRepository>();
 
             kernel.Bind<ITransactionRepository>().To<TransactionRepository>();
+
+            kernel.Bind<IUserRepository>().To<UserRepository>();
+
+            kernel.Bind<ICategoryRepository>().To<CategoryRepository>();
         }        
     }
 }

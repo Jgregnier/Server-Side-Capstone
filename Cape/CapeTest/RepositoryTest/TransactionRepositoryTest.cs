@@ -156,5 +156,33 @@ namespace Cape.Test.RepositoryTest
 
             Assert.AreEqual(ShouldBeListOfNewTransactions[1], ListOfNewTransactions[1]);
         }
+
+        [TestMethod]
+        public void RepoCanAddACategoryToATransaction()
+        {
+            List<Transaction> ListOfTransactions = new List<Transaction>();
+
+            ConnectMocksToDataStore(ListOfTransactions);
+
+            mock_transaction_set.Setup(a => a.Add(It.IsAny<Transaction>()))
+                .Callback((Transaction x) => ListOfTransactions.Add(x));
+
+      
+            Transaction TestTransaction = new Transaction();
+            TestTransaction.Description = "Test Transaction";
+            TestTransaction.TransactionId = 1;
+            TestTransaction.Amount = 00.00;
+            TestTransaction.ReportId = 1;
+
+            Category TestCategory = new Category();
+            TestCategory.CategoryId = 1;
+            TestCategory.Name = "Test Category";
+
+            transactionRepository.Create(TestTransaction);
+
+            transactionRepository.AddCategoryToTransaction(TestCategory.CategoryId, TestTransaction.TransactionId);
+
+            Assert.AreEqual(TestTransaction.CategoryId, TestCategory.CategoryId);
+        }
     }
 }

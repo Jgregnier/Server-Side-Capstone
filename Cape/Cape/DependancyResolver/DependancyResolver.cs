@@ -32,6 +32,9 @@ namespace Cape.DependancyResolver
 
                 Bind(typeof(IReportRepository))
                     .To(typeof(ReportRepository));
+
+                Bind(typeof(ICategoryRepository))
+                   .To(typeof(CategoryRepository));
             }
         }
     }

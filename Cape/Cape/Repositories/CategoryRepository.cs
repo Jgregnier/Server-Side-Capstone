@@ -2,6 +2,7 @@
 using Cape.Data;
 using Cape.Interfaces;
 using Cape.Models;
+using System.Collections.Generic;
 
 namespace Cape.Repositories
 {
@@ -12,6 +13,13 @@ namespace Cape.Repositories
         public CategoryRepository(CategoryRepositoryConnection connection)
         {
             context = connection.AppContext;
+        }
+
+        public List<Category> GetAll()
+        {
+            List<Category> ListOfAllCategories = context.Category.ToList();
+
+            return ListOfAllCategories;
         }
 
         public Category GetById(int categoryId)

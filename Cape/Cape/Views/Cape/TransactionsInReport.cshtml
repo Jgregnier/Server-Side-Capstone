@@ -7,8 +7,11 @@
 
 @foreach (var transaction in Model.ListOfTransactions)
 {
-    <p>@Html.DisplayFor(modelItem => transaction.Amount) 
+    <p>
+       @Html.DisplayFor(modelItem => transaction.Amount)
        @Html.DisplayFor(modelItem => transaction.Description)
        @Html.DisplayFor(modelItem => transaction.Date)
-       @Html.DisplayFor(modelItem => transaction.Category.Name)</p>
+       @Html.DisplayFor(modelItem => transaction.Category.Name)
+       <div class="CategoryDropDownList" id=@Html.DisplayFor(modelItem => transaction.TransactionId)> @Html.DropDownList("CategoriesList")</div>
+    </p>
 }

@@ -8,6 +8,7 @@ namespace Cape.Interfaces
         void Create(Transaction obj);
         void AddNewTransactions(ICollection<Transaction> NewTransactions, int newReportId);
         void Update(Transaction obj);
+        void AddCategoryToTransaction(int categoryId, int transactionId);
         Transaction GetById(int transactionId);
         ICollection<Transaction> GetByReportId(int reportId);
     }

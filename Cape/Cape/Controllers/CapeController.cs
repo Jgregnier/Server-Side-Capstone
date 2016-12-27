@@ -6,6 +6,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using System;
 
 namespace Cape.Controllers
 {
@@ -15,22 +16,20 @@ namespace Cape.Controllers
         {
         }
       
-        public CapeController( IUserRepository _userRepository, ITransactionRepository _transactionRepository, IReportRepository _reportRepository)
+        public CapeController( ICategoryRepository _categoryRepository, ITransactionRepository _transactionRepository, IReportRepository _reportRepository)
         {
-            userRepository = _userRepository;
-            transactionRepository = _transactionRepository;
+            categoryRepository = _categoryRepository;
             reportRepository = _reportRepository;
+            transactionRepository = _transactionRepository;
         }
-
-        //ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
 
         string userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
 
-        private IUserRepository userRepository;
-
-        private ITransactionRepository transactionRepository;
+        private ICategoryRepository categoryRepository;
 
         private IReportRepository reportRepository;
+
+        private ITransactionRepository transactionRepository;
 
         public ActionResult Index()
         {
@@ -48,11 +47,23 @@ namespace Cape.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        [Authorize]
+        public JsonResult AddCategoryToTransaction([System.Web.Http.FromBody]string categoryId, [System.Web.Http.FromBody]string transactionId)
+        {
+
+            transactionRepository.AddCategoryToTransaction(Convert.ToInt32(categoryId), Convert.ToInt32(transactionId));
+
+            return Json(0);
+        }
+
         [HttpGet]
         [Authorize]
         public ActionResult TransactionsInReport([System.Web.Http.FromUri]int id)
         {
-            TransactionsListViewModel model = new TransactionsListViewModel();
+            List<Category> ListOfAllCategories = categoryRepository.GetAll();
+
+            TransactionsListViewModel model = new TransactionsListViewModel(ListOfAllCategories);
 
             model.ListOfTransactions = transactionRepository.GetByReportId(id);
             

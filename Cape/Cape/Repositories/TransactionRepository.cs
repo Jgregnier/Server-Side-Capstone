@@ -35,6 +35,15 @@ namespace Cape.Repositories
             context.SaveChanges();
         }
 
+        public void AddCategoryToTransaction(int categoryId, int transactionId)
+        {
+            Transaction SelectedTransaction = context.Transaction.Single(t => t.TransactionId == transactionId);
+
+            SelectedTransaction.CategoryId = categoryId;
+
+            Update(SelectedTransaction);
+        }
+
         public Transaction GetById(int transactionId)
         {
             Transaction SelectedTransaction = context.Transaction.Single(t => t.TransactionId == transactionId);
