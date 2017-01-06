@@ -12,6 +12,6 @@
        @Html.DisplayFor(modelItem => transaction.Description)
        @Html.DisplayFor(modelItem => transaction.Date)
        @Html.DisplayFor(modelItem => transaction.Category.Name)
-       <div class="CategoryDropDownList" id=@Html.DisplayFor(modelItem => transaction.TransactionId)> @Html.DropDownList("CategoriesList")</div>
+       <div id=@Html.DisplayFor(modelItem => transaction.TransactionId)> @Html.DropDownList("CategoriesList", null, new { @class = "CategoriesList" })</div>
     </p>
 }

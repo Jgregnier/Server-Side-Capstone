@@ -1,8 +1,9 @@
-﻿using System.Linq;
-using Cape.Models;
+﻿using Cape.Models;
 using Cape.Data;
 using Cape.Interfaces;
+using System.Linq;
 using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace Cape.Repositories
 {
@@ -39,7 +40,7 @@ namespace Cape.Repositories
         {
             Transaction SelectedTransaction = context.Transaction.Single(t => t.TransactionId == transactionId);
 
-            SelectedTransaction.CategoryId = categoryId;
+            SelectedTransaction.Category = context.Category.Single(c => c.CategoryId == categoryId);
 
             Update(SelectedTransaction);
         }
@@ -62,7 +63,7 @@ namespace Cape.Repositories
 
         public ICollection<Transaction> GetByReportId(int reportId)
         {
-            List<Transaction> ListOfTransactionsByReportId = context.Transaction.Where(t => t.ReportId == reportId).ToList();
+            List<Transaction> ListOfTransactionsByReportId = context.Transaction.Include(t => t.Category).Where(t => t.ReportId == reportId).ToList();
 
             return ListOfTransactionsByReportId;
         }

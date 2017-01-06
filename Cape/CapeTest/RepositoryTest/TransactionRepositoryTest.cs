@@ -182,7 +182,7 @@ namespace Cape.Test.RepositoryTest
 
             transactionRepository.AddCategoryToTransaction(TestCategory.CategoryId, TestTransaction.TransactionId);
 
-            Assert.AreEqual(TestTransaction.CategoryId, TestCategory.CategoryId);
+            Assert.AreEqual(TestTransaction.Category.CategoryId, TestCategory.CategoryId);
         }
     }
 }

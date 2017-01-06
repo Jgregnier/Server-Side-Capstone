@@ -45,23 +45,6 @@ namespace Cape.Repositories
 
             List<Report> listOfReports = context.Report.Where(r => r.UserId == UserId).ToList();
 
-            //List<Report> listOfReports = context.Report.Include(r => r.Transactions).ToList();
-
-            //IEnumerable<Report> listOfReports =
-            //    from report in context.Report
-            //    join user in context.Users on report.User equals user
-            //    select report;
-
-            //var qry = (
-            //           from r in context.Report
-            //           join u in context.Users on r.User.Id equals u.Id
-            //           select r).Include("User").ToList();
-
-            //List<Report> listOfReports = qry.Where(r => r.User.Id == UserId).ToList();
-
-            //group new Report { ReportId = report.ReportId, UploadDate = report.UploadDate, User = user};
-
-
             return listOfReports;
         }
 

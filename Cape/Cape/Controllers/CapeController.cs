@@ -53,8 +53,8 @@ namespace Cape.Controllers
         {
 
             transactionRepository.AddCategoryToTransaction(Convert.ToInt32(categoryId), Convert.ToInt32(transactionId));
-
-            return Json(0);
+        
+            return Json("Success");
         }
 
         [HttpGet]
