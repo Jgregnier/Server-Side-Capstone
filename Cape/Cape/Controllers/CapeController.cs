@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using System;
+using System.Runtime;
 
 namespace Cape.Controllers
 {
@@ -43,6 +44,8 @@ namespace Cape.Controllers
             AllReportsViewModel model = new AllReportsViewModel();
 
             model.AllReports = reportRepository.GetByUser(userId);
+
+            model.AllCategories = categoryRepository.GetAll();
             
             return View(model);
         }

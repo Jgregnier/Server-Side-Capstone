@@ -7,5 +7,24 @@
 
 @foreach(var report in Model.AllReports)
 {
-    <a href=@("TransactionsInReport?id=" + report.ReportId)><p>@Html.DisplayFor(modelItem => report.UploadDate)</p></a>
+    <div class="report">
+        <div class="reportDatePublished">Report Uploaded on :@Html.DisplayFor(modelItem => report.UploadDate) </div>
+        <a class="btn btn-primary" href=@("TransactionsInReport?id=" + report.ReportId)> View Transactions In This Report</a>
+        <button class="btn btn-danger SpendingByCategoryBtn"> Spending By Category In This Report</button>
+        <div class="SpendingByCategory hidden">
+        @foreach (var category in Model.AllCategories)
+        {
+            double amountSpentPerCategory = 0;
+
+            foreach(var transaction in report.Transactions)
+            {
+                if (transaction.CategoryId == category.CategoryId)
+                {
+                    amountSpentPerCategory += transaction.Amount;
+                };
+            }
+            <p>@Html.DisplayFor(modelItem => category.Name) : @Html.DisplayFor(modelItem => amountSpentPerCategory) </p>
+        }
+        </div>
+    </div>
 }

@@ -5,6 +5,8 @@ namespace Cape.ViewModels
 {
     public class AllReportsViewModel
     {
-        public IEnumerable<Report> AllReports { get; set; }
+        public List<Report> AllReports { get; set; }
+
+        public IEnumerable<Category> AllCategories { get; set; }
     }
 }

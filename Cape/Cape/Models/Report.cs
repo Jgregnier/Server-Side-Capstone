@@ -12,7 +12,7 @@ namespace Cape.Models
         [Required]
         public DateTime UploadDate { get; set; }
 
-        public ICollection<Transaction> Transactions { get; set; }
+        public List<Transaction> Transactions { get; set; }
 
         public string UserId { get; set; }
 

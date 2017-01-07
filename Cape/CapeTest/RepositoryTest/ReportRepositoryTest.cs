@@ -7,18 +7,19 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using Microsoft.AspNet.Identity;
 
 namespace Cape.Test.RepositoryTest
 {
     [TestClass]
     public class ReportRepositoryTest
     {
+        // Mock DBSet, Context, Repo, and Repo Connection we will be using in these tests
         private Mock<DbSet<Report>> mock_report_set;
         private Mock<ApplicationDbContext> mock_context;
         private ReportRepositoryConnection reportRepositoryConnection;
         private ReportRepository reportRepository;
 
+        //This method connects a IEnumerable of Reports to the mock context. We do this at initialization.
         private void ConnectMocksToDataStore(IEnumerable<Report> data_store)
         {
             var data_source = data_store.AsQueryable();
@@ -32,18 +33,28 @@ namespace Cape.Test.RepositoryTest
         [TestInitialize]
         public void Initialize()
         {
+            //Giving Repo, Repo Connection, and Mock_context initial values at the begginning of each test
             mock_context = new Mock<ApplicationDbContext>() { CallBase = true };
             mock_report_set = new Mock<DbSet<Report>>();
             reportRepositoryConnection = new ReportRepositoryConnection(mock_context.Object);
             reportRepository = new ReportRepository(reportRepositoryConnection);
+
+            //Populating the fake context to interact with in every test
+            List<Report> ListOfReports = new List<Report>();
+            ConnectMocksToDataStore(ListOfReports);
+
+            mock_report_set.Setup(a => a.Add(It.IsAny<Report>()))
+                .Callback((Report x) => ListOfReports.Add(x));
         }
 
         [TestCleanup]
         public void Cleanup()
         {
+            // Setting our context and Repos back to null after each test
             mock_context = null;
             mock_report_set = null;
             reportRepository = null;
+            reportRepositoryConnection = null;
         }
 
         [TestMethod]
@@ -55,15 +66,6 @@ namespace Cape.Test.RepositoryTest
         [TestMethod]
         public void RepoCanCreateReportAndGetByID()
         {
-
-            List<Report> ListOfReports = new List<Report>();
-
-
-            ConnectMocksToDataStore(ListOfReports);
-
-            mock_report_set.Setup(a => a.Add(It.IsAny<Report>()))
-                .Callback((Report x) => ListOfReports.Add(x));
-
             ApplicationUser fakeUser = new ApplicationUser();
             fakeUser.FirstName = "Test First Name";
             fakeUser.LastName = "Test Last Name";
@@ -80,13 +82,6 @@ namespace Cape.Test.RepositoryTest
         [TestMethod]
         public void RepoCanGetAllReportsByUser()
         {
-            List<Report> ListOfReports = new List<Report>();
-
-            ConnectMocksToDataStore(ListOfReports);
-
-            mock_report_set.Setup(a => a.Add(It.IsAny<Report>()))
-                .Callback((Report x) => ListOfReports.Add(x));
-
             ApplicationUser fakeUser = new ApplicationUser();
             fakeUser.FirstName = "Test First Name";
             fakeUser.LastName = "Test Last Name";
@@ -109,13 +104,6 @@ namespace Cape.Test.RepositoryTest
         [TestMethod]
         public void ReportRepoCanUpdateReports()
         {
-            List<Report> ListOfReports = new List<Report>();
-
-            ConnectMocksToDataStore(ListOfReports);
-
-            mock_report_set.Setup(a => a.Add(It.IsAny<Report>()))
-                .Callback((Report x) => ListOfReports.Add(x));
-
             ApplicationUser fakeUser = new ApplicationUser();
             fakeUser.FirstName = "Test First Name";
             fakeUser.LastName = "Test Last Name";

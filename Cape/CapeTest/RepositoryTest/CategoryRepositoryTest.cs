@@ -12,11 +12,13 @@ namespace Cape.Test.RepositoryTest
     [TestClass]
     public class CategoryRepositoryTest
     {
+        // Mock DBSet, Context, Repo, and Repo Connection we will be using in these tests
         private Mock<DbSet<Category>> mock_category_set;
         private Mock<ApplicationDbContext> mock_context;
         private CategoryRepositoryConnection categoryRepositoryConnection;
         private CategoryRepository categoryRepository;
 
+        //This method connects a IEnumerable of Categories to the mock context. We do this at initialization.
         private void ConnectMocksToDataStore(IEnumerable<Category> data_store)
         {
             var data_source = data_store.AsQueryable();
@@ -30,18 +32,28 @@ namespace Cape.Test.RepositoryTest
         [TestInitialize]
         public void Initialize()
         {
+            //Giving Repo, Repo Connection, and Mock_context initial values at the begginning of each test
             mock_context = new Mock<ApplicationDbContext>() { CallBase = true};
             mock_category_set = new Mock<DbSet<Category>>();
             categoryRepositoryConnection = new CategoryRepositoryConnection(mock_context.Object);
             categoryRepository = new CategoryRepository(categoryRepositoryConnection);
+
+            //Populating the fake context to interact with in every test
+            List<Category> ListOfCategories = new List<Category>();
+            ConnectMocksToDataStore(ListOfCategories);
+
+            mock_category_set.Setup(a => a.Add(It.IsAny<Category>()))
+                .Callback((Category x) => ListOfCategories.Add(x));
         }
 
         [TestCleanup]
         public void Cleanup()
         {
+            // Setting our context and Repos back to null after each test
             mock_context = null;
             mock_category_set = null;
             categoryRepository = null;
+            categoryRepositoryConnection = null; 
         }
 
         [TestMethod]
@@ -53,20 +65,6 @@ namespace Cape.Test.RepositoryTest
         [TestMethod]
         public void RepoCanCreateCategoriesAndGetByID()
         {
-
-            List<Category> ListOfCategories = new List<Category>();
-            
-            Category TestCategory = new Category();
-            TestCategory.Name = "Test Category";
-            TestCategory.CategoryId = 0;
-
-            ListOfCategories.Add(TestCategory);
-
-            ConnectMocksToDataStore(ListOfCategories);
-
-            mock_category_set.Setup(a => a.Add(It.IsAny<Category>()))
-                .Callback((Category x) => ListOfCategories.Add(x));
-
             Category CreatedCategory = new Category();
             CreatedCategory.Name = "Created Category";
             CreatedCategory.CategoryId = 1;
@@ -82,19 +80,6 @@ namespace Cape.Test.RepositoryTest
         [TestMethod]
         public void CategoryRepoCanUpdateCategories()
         {
-            List<Category> ListOfCategories = new List<Category>();
-
-            Category TestCategory = new Category();
-            TestCategory.Name = "Test Category";
-            TestCategory.CategoryId = 0;
-
-            ListOfCategories.Add(TestCategory);
-
-            ConnectMocksToDataStore(ListOfCategories);
-
-            mock_category_set.Setup(a => a.Add(It.IsAny<Category>()))
-                .Callback((Category x) => ListOfCategories.Add(x));
-
             Category CreatedCategory = new Category();
             CreatedCategory.Name = "Created Category";
             CreatedCategory.CategoryId = 1;

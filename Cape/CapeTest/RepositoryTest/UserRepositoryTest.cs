@@ -12,11 +12,13 @@ namespace Cape.Test.RepositoryTest
     [TestClass]
     public class UserRepositoryTest
     {
+        // Mock DBSet, Context, Repo, and Repo Connection we will be using in these tests
         private Mock<DbSet<ApplicationUser>> mock_user_set;
         private Mock<ApplicationDbContext> mock_context;
         private UserRepositoryConnection userRepositoryConnection;
         private UserRepository userRepository;
 
+        //This method connects a IEnumerable of Users to the mock context. We do this at initialization.
         private void ConnectMocksToDataStore(IEnumerable<ApplicationUser> data_store)
         {
             var data_source = data_store.AsQueryable();
@@ -30,18 +32,28 @@ namespace Cape.Test.RepositoryTest
         [TestInitialize]
         public void Initialize()
         {
+            //Giving Repo, Repo Connection, and Mock_context initial values at the begginning of each test
             mock_context = new Mock<ApplicationDbContext>() { CallBase = true };
             mock_user_set = new Mock<DbSet<ApplicationUser>>();
             userRepositoryConnection = new UserRepositoryConnection(mock_context.Object);
             userRepository = new UserRepository(userRepositoryConnection);
+
+            //Populating the fake context to interact with in every test
+            List<ApplicationUser> ListOfUsers = new List<ApplicationUser>();
+            ConnectMocksToDataStore(ListOfUsers);
+
+            mock_user_set.Setup(a => a.Add(It.IsAny<ApplicationUser>()))
+                .Callback((ApplicationUser x) => ListOfUsers.Add(x));
         }
 
         [TestCleanup]
         public void Cleanup()
         {
+            // Setting our context and Repos back to null after each test
             mock_context = null;
             mock_user_set = null;
             userRepository = null;
+            userRepositoryConnection = null;
         }
 
         [TestMethod]
@@ -53,23 +65,6 @@ namespace Cape.Test.RepositoryTest
         [TestMethod]
         public void RepoCanCreateUsersAndGetByID()
         {
-
-            List<ApplicationUser> ListOfUsers = new List<ApplicationUser>();
-
-            ApplicationUser TestUser = new ApplicationUser();
-            TestUser.FirstName = "Test FirstName";
-            TestUser.LastName = "Test LastName";
-            TestUser.Id = "Test Guid";
-            TestUser.Email = "Test Email";
-            TestUser.PasswordHash = "Some Password Hash";
-
-            ListOfUsers.Add(TestUser);
-
-            ConnectMocksToDataStore(ListOfUsers);
-
-            mock_user_set.Setup(a => a.Add(It.IsAny<ApplicationUser>()))
-                .Callback((ApplicationUser x) => ListOfUsers.Add(x));
-
             ApplicationUser CreatedUser = new ApplicationUser();
             CreatedUser.FirstName = "Created FirstName";
             CreatedUser.LastName = "Created LastName";
@@ -88,22 +83,6 @@ namespace Cape.Test.RepositoryTest
         [TestMethod]
         public void UserRepoCanUpdateUsers()
         {
-            List<ApplicationUser> ListOfUsers = new List<ApplicationUser>();
-
-            ApplicationUser TestUser = new ApplicationUser();
-            TestUser.FirstName = "Test FirstName";
-            TestUser.LastName = "Test LastName";
-            TestUser.Id = "Test Guid";
-            TestUser.Email = "Test Email";
-            TestUser.PasswordHash = "Some Password Hash";
-
-            ListOfUsers.Add(TestUser);
-
-            ConnectMocksToDataStore(ListOfUsers);
-
-            mock_user_set.Setup(a => a.Add(It.IsAny<ApplicationUser>()))
-                .Callback((ApplicationUser x) => ListOfUsers.Add(x));
-
             ApplicationUser CreatedUser = new ApplicationUser();
             CreatedUser.FirstName = "Created FirstName";
             CreatedUser.LastName = "Created LastName";

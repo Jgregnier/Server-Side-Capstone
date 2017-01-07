@@ -331,7 +331,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adapters\CSVUploader.cs" />
-    <Compile Include="App_Start\NinjectWeb.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Data\ApplicationDbContext.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />

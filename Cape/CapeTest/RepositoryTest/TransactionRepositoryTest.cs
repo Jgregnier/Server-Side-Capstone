@@ -12,11 +12,13 @@ namespace Cape.Test.RepositoryTest
     [TestClass]
     public class TransactionRepositoryTest
     {
+        // Mock DBSet, Context, Repo, and Repo Connection we will be using in these tests
         private Mock<DbSet<Transaction>> mock_transaction_set;
         private Mock<ApplicationDbContext> mock_context;
         private TransactionRepositoryConnection transactionRepositoryConnection;
         private TransactionRepository transactionRepository;
 
+        //This method connects a IEnumerable of Transactions to the mock context. We do this at initialization.
         private void ConnectMocksToDataStore(IEnumerable<Transaction> data_store)
         {
             var data_source = data_store.AsQueryable();
@@ -30,17 +32,28 @@ namespace Cape.Test.RepositoryTest
         [TestInitialize]
         public void Initialize()
         {
+            //Giving Repo, Repo Connection, and Mock_context initial values at the begginning of each test
             mock_context = new Mock<ApplicationDbContext>() { CallBase = true };
             mock_transaction_set = new Mock<DbSet<Transaction>>();
             transactionRepositoryConnection = new TransactionRepositoryConnection(mock_context.Object);
             transactionRepository = new TransactionRepository(transactionRepositoryConnection);
+
+            List<Transaction> ListOfTransactions = new List<Transaction>();
+
+            //Populating the fake context to interact with in every test
+            ConnectMocksToDataStore(ListOfTransactions);
+
+            mock_transaction_set.Setup(a => a.Add(It.IsAny<Transaction>()))
+                .Callback((Transaction x) => ListOfTransactions.Add(x));
         }
 
         [TestCleanup]
         public void Cleanup()
         {
+            // Setting our context and Repos back to null after each test
             mock_context = null;
             mock_transaction_set = null;
+            transactionRepositoryConnection = null;
             transactionRepository = null;
         }
 
@@ -53,21 +66,6 @@ namespace Cape.Test.RepositoryTest
         [TestMethod]
         public void RepoCanCreateTransactionsAndGetByID()
         {
-
-            List<Transaction> ListOfTransactions = new List<Transaction>();
-
-            Transaction TestTransaction = new Transaction();
-            TestTransaction.Description = "Test Transaction";
-            TestTransaction.TransactionId = 0;
-            TestTransaction.Amount = 20.00;
-
-            ListOfTransactions.Add(TestTransaction);
-
-            ConnectMocksToDataStore(ListOfTransactions);
-
-            mock_transaction_set.Setup(a => a.Add(It.IsAny<Transaction>()))
-                .Callback((Transaction x) => ListOfTransactions.Add(x));
-
             Transaction CreatedTransaction = new Transaction();
             CreatedTransaction.Description = "Created Transaction";
             CreatedTransaction.TransactionId = 1;
@@ -83,20 +81,6 @@ namespace Cape.Test.RepositoryTest
         [TestMethod]
         public void RepoCanUpdateTransactions()
         {
-            List<Transaction> ListOfTransactions = new List<Transaction>();
-
-            Transaction TestTransaction = new Transaction();
-            TestTransaction.Description= "Test Transaction";
-            TestTransaction.TransactionId = 0;
-            TestTransaction.Amount = 300.00;
-
-            ListOfTransactions.Add(TestTransaction);
-
-            ConnectMocksToDataStore(ListOfTransactions);
-
-            mock_transaction_set.Setup(a => a.Add(It.IsAny<Transaction>()))
-                .Callback((Transaction x) => ListOfTransactions.Add(x));
-
             Transaction CreatedTransaction = new Transaction();
             CreatedTransaction.Description = "Created Transaction";
             CreatedTransaction.TransactionId = 1;
@@ -118,25 +102,16 @@ namespace Cape.Test.RepositoryTest
         [TestMethod]
         public void RepoCanSaveACollectionOfTransactions ()
         {
-            List<Transaction> ListOfTransactions = new List<Transaction>();
-
-            ConnectMocksToDataStore(ListOfTransactions);
-
-            mock_transaction_set.Setup(a => a.Add(It.IsAny<Transaction>()))
-                .Callback((Transaction x) => ListOfTransactions.Add(x));
-
             //Create two new transactions to save as a collection
             Transaction CreatedTransaction = new Transaction();
             CreatedTransaction.Description = "Created Transaction";
             CreatedTransaction.TransactionId = 1;
             CreatedTransaction.Amount = 00.00;
-            CreatedTransaction.ReportId = 1;
 
             Transaction CreatedTransaction1 = new Transaction();
             CreatedTransaction1.Description = "Created Transaction1";
             CreatedTransaction1.TransactionId = 1;
             CreatedTransaction1.Amount = 100.00;
-            CreatedTransaction1.ReportId = 1;
 
             //Add them both to the collection
             List<Transaction> ListOfNewTransactions = new List<Transaction>();
@@ -144,14 +119,17 @@ namespace Cape.Test.RepositoryTest
             ListOfNewTransactions.Add(CreatedTransaction);
             ListOfNewTransactions.Add(CreatedTransaction1);
 
+            // Pass Collection of Transactions to Repo with Report Id to be assigned to them
             transactionRepository.AddNewTransactions(ListOfNewTransactions, 1);
 
+            //Retrieve Transactions we just saved to fake context with ReportId Assigned to them (1)
             ICollection<Transaction> CollectionOfNewTransactions = transactionRepository.GetByReportId(1);
 
             List<Transaction> ShouldBeListOfNewTransactions = CollectionOfNewTransactions.ToList();
 
             Assert.IsNotNull(ShouldBeListOfNewTransactions);
  
+            //Comparing the Original List of Transactions to the Transactions retieved from our repo, ensuring saving to our context
             Assert.AreEqual(ShouldBeListOfNewTransactions[0], ListOfNewTransactions[0]);
 
             Assert.AreEqual(ShouldBeListOfNewTransactions[1], ListOfNewTransactions[1]);
@@ -160,14 +138,6 @@ namespace Cape.Test.RepositoryTest
         [TestMethod]
         public void RepoCanAddACategoryToATransaction()
         {
-            List<Transaction> ListOfTransactions = new List<Transaction>();
-
-            ConnectMocksToDataStore(ListOfTransactions);
-
-            mock_transaction_set.Setup(a => a.Add(It.IsAny<Transaction>()))
-                .Callback((Transaction x) => ListOfTransactions.Add(x));
-
-      
             Transaction TestTransaction = new Transaction();
             TestTransaction.Description = "Test Transaction";
             TestTransaction.TransactionId = 1;
