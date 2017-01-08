@@ -64,13 +64,11 @@ namespace Cape.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IUserRepository>().To<UserRepository>();
-
             kernel.Bind<ITransactionRepository>().To<TransactionRepository>();
 
-            kernel.Bind<IUserRepository>().To<UserRepository>();
-
             kernel.Bind<ICategoryRepository>().To<CategoryRepository>();
+
+            kernel.Bind<IReportRepository>().To<ReportRepository>();
         }        
     }
 }

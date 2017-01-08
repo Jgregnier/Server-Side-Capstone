@@ -27,9 +27,6 @@ namespace Cape.DependancyResolver
                 Bind(typeof(ITransactionRepository))
                     .To(typeof(TransactionRepository));
 
-                Bind(typeof(IUserRepository))
-                    .To(typeof(UserRepository));
-
                 Bind(typeof(IReportRepository))
                     .To(typeof(ReportRepository));
 

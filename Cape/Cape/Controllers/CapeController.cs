@@ -1,12 +1,12 @@
 ﻿using Cape.Adapters;
-using Cape.Models;
 using Cape.Interfaces;
+using Cape.Models;
 using Cape.ViewModels;
-using System.IO;
-using System.Collections.Generic;
-using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Web.Mvc;
 
 namespace Cape.Controllers
 {
