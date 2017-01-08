@@ -8,10 +8,10 @@
 @foreach (var transaction in Model.ListOfTransactions)
 {
     <div class="Transaction">
-        @Html.DisplayFor(modelItem => transaction.Amount)
-        @Html.DisplayFor(modelItem => transaction.Description)
-        @Html.DisplayFor(modelItem => transaction.Date)
-        @Html.DisplayFor(modelItem => transaction.Category.Name)
-        <div id=@Html.DisplayFor(modelItem => transaction.TransactionId)> @Html.DropDownList("CategoriesList", null, new { @class = "CategoriesList" })</div>
+        <div class="marginBetweenTransactionItems">@Html.DisplayFor(modelItem => transaction.Amount)</div>
+        <div class="marginBetweenTransactionItems">@Html.DisplayFor(modelItem => transaction.Description)</div>
+        <div class="marginBetweenTransactionItems">@Html.DisplayFor(modelItem => transaction.Date)</div>
+        <div class="marginBetweenTransactionItems">@Html.DisplayFor(modelItem => transaction.Category.Name)</div>
+        <div id=@Html.DisplayFor(modelItem => transaction.TransactionId) class="dropdownForCategories pull-right"> @Html.DropDownList("CategoriesList", null, new { @class = "CategoriesList" })</div>
     </div>
 }

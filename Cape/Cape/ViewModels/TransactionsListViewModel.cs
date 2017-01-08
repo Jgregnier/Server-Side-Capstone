@@ -24,7 +24,7 @@ namespace Cape.ViewModels
 
             this.CategoriesList.Insert(0, new SelectListItem
             {
-                Text = "Add A New Category",
+                Text = "Change Category",
                 Value = ""
             });
         }
