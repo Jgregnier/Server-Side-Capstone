@@ -19,7 +19,7 @@ namespace Cape.Adapters
             {
                 TransactionList.Add(new Transaction
                 { 
-                    Date = Convert.ToDateTime(reader.GetField<string>("Date")),
+                    Date = Convert.ToDateTime(reader.GetField<string>("Date")).Date,
                     Description = reader.GetField<string>("Description"),
                     Amount = Convert.ToDouble(reader.GetField<string>("Amount"))
                 });

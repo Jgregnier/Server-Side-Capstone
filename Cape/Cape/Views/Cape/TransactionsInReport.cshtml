@@ -8,10 +8,10 @@
 @foreach (var transaction in Model.ListOfTransactions)
 {
     <div class="Transaction">
-        <div class="marginBetweenTransactionItems">@Html.DisplayFor(modelItem => transaction.Amount)</div>
-        <div class="marginBetweenTransactionItems">@Html.DisplayFor(modelItem => transaction.Description)</div>
-        <div class="marginBetweenTransactionItems">@Html.DisplayFor(modelItem => transaction.Date)</div>
-        <div class="marginBetweenTransactionItems">@Html.DisplayFor(modelItem => transaction.Category.Name)</div>
+        <div class="marginBetweenTransactionItems pull-left">@Html.DisplayFor(modelItem => transaction.Amount)</div>
+        <div class="marginBetweenTransactionItems transactionDesription">@Html.DisplayFor(modelItem => transaction.Description)</div>
         <div id=@Html.DisplayFor(modelItem => transaction.TransactionId) class="dropdownForCategories pull-right"> @Html.DropDownList("CategoriesList", null, new { @class = "CategoriesList" })</div>
+        <div class="categoryDisplay pull-right">@Html.DisplayFor(modelItem => transaction.Category.Name)</div>
+        <div class="marginBetweenTransactionItems transactionTime pull-right">@Html.DisplayFor(modelItem => transaction.Date.Month)/@Html.DisplayFor(modelItem => transaction.Date.Day)/@Html.DisplayFor(modelItem => transaction.Date.Year)</div>
     </div>
 }

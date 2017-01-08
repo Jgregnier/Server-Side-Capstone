@@ -13,5 +13,7 @@ namespace Cape.Interfaces
         List<Report> GetByUser(string UserId);
 
         void Update(Report obj);
+
+        void DeleteReport(int ReportId);
     }
 }

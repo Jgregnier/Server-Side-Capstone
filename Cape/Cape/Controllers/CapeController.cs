@@ -49,6 +49,15 @@ namespace Cape.Controllers
             return View(model);
         }
 
+        [HttpDelete]
+        [Authorize]
+        public JsonResult DeleteReport([System.Web.Http.FromUri]int id)
+        {
+            reportRepository.DeleteReport(id);
+
+            return Json("Report Deleted");
+        }
+
         [HttpPost]
         [Authorize]
         public JsonResult AddCategoryToTransaction([System.Web.Http.FromBody]string categoryId, [System.Web.Http.FromBody]string transactionId)

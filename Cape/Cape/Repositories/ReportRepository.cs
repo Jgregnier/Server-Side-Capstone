@@ -56,5 +56,16 @@ namespace Cape.Repositories
 
             context.SaveChangesAsync();
         }
+
+        public void DeleteReport(int ReportId)
+        {
+            Report ReportToBeDeleted = context.Report.Where(r => r.ReportId == ReportId).Single();
+
+            context.Report.Remove(ReportToBeDeleted);
+
+            context.ChangeTracker.DetectChanges();
+
+            context.SaveChangesAsync();
+        }
     }
 }

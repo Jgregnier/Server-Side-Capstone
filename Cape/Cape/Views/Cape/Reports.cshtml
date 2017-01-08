@@ -10,7 +10,8 @@
     <div class="report">
         <div class="reportDatePublished">Report Uploaded on :@Html.DisplayFor(modelItem => report.UploadDate) </div>
         <a class="btn btn-primary" href=@("TransactionsInReport?id=" + report.ReportId)> View Transactions In This Report</a>
-        <button class="btn btn-danger SpendingByCategoryBtn"> Spending By Category In This Report</button>
+        <button id=@(report.ReportId) class="deleteReport btn btn-danger pull-right">Delete</button>
+        <button class="btn btn-warning SpendingByCategoryBtn"> Spending By Category In This Report</button>
         <div class="SpendingByCategory hidden">
         @foreach (var category in Model.AllCategories)
         {

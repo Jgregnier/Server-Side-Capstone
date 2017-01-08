@@ -91,6 +91,8 @@ namespace Cape.Test.RepositoryTest
 
             int SecondFakeReportId = reportRepository.Create(fakeUser.Id);
 
+
+
             List<Report> shouldBeBothOfTheCreatedReports = reportRepository.GetByUser(fakeUser.Id);
 
             Assert.AreEqual(FirstFakeReportId, shouldBeBothOfTheCreatedReports[0].ReportId);
@@ -121,6 +123,27 @@ namespace Cape.Test.RepositoryTest
 
             Assert.AreEqual(updatedReport.ReportId, CreatedReportId);
             Assert.AreEqual(updatedReport.UploadDate, new DateTime(2015, 11, 21));
+        }
+
+        [TestMethod]
+        public void ReportRepoCanDeleteReports()
+        {
+            ApplicationUser fakeUser = new ApplicationUser();
+            fakeUser.FirstName = "Test First Name";
+            fakeUser.LastName = "Test Last Name";
+            fakeUser.Id = "Test Guid";
+
+            int CreatedReportId = reportRepository.Create(fakeUser.Id);
+
+            Report CreatedReport = reportRepository.GetById(CreatedReportId);
+
+            Assert.IsNotNull(CreatedReport);
+
+            reportRepository.DeleteReport(CreatedReport.ReportId);
+
+            Report DeletedReport = reportRepository.GetById(CreatedReportId);
+
+            Assert.IsNull(DeletedReport);
         }
     }
 }
