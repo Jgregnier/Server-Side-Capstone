@@ -102,15 +102,19 @@ namespace Cape.Test.RepositoryTest
         [TestMethod]
         public void RepoCanSaveACollectionOfTransactions ()
         {
+            //Fake Report for the transactions to be saved to
+            Report FakeReport = new Report();
+            FakeReport.ReportId = 1;
+
             //Create two new transactions to save as a collection
             Transaction CreatedTransaction = new Transaction();
             CreatedTransaction.Description = "Created Transaction";
             CreatedTransaction.TransactionId = 1;
-            CreatedTransaction.Amount = 00.00;
+            CreatedTransaction.Amount = 500.00;
 
             Transaction CreatedTransaction1 = new Transaction();
             CreatedTransaction1.Description = "Created Transaction1";
-            CreatedTransaction1.TransactionId = 1;
+            CreatedTransaction1.TransactionId = 2;
             CreatedTransaction1.Amount = 100.00;
 
             //Add them both to the collection
@@ -122,17 +126,16 @@ namespace Cape.Test.RepositoryTest
             // Pass Collection of Transactions to Repo with Report Id to be assigned to them
             transactionRepository.AddNewTransactions(ListOfNewTransactions, 1);
 
-            //Retrieve Transactions we just saved to fake context with ReportId Assigned to them (1)
-            ICollection<Transaction> CollectionOfNewTransactions = transactionRepository.GetByReportId(1);
+            //Retrieve transactions we just saved to the data base
+            Transaction Transaction1 = transactionRepository.GetById(1);
+            Transaction Transaction2 = transactionRepository.GetById(2);
 
-            List<Transaction> ShouldBeListOfNewTransactions = CollectionOfNewTransactions.ToList();
+            Assert.IsNotNull(Transaction1);
+            Assert.IsNotNull(Transaction2);
 
-            Assert.IsNotNull(ShouldBeListOfNewTransactions);
- 
             //Comparing the Original List of Transactions to the Transactions retieved from our repo, ensuring saving to our context
-            Assert.AreEqual(ShouldBeListOfNewTransactions[0], ListOfNewTransactions[0]);
-
-            Assert.AreEqual(ShouldBeListOfNewTransactions[1], ListOfNewTransactions[1]);
+            Assert.AreEqual(Transaction1, ListOfNewTransactions[0]);
+            Assert.AreEqual(Transaction2, ListOfNewTransactions[1]);
         }
 
         [TestMethod]

@@ -61,7 +61,7 @@ namespace Cape.Repositories
             context.SaveChanges();
         }
 
-        public ICollection<Transaction> GetByReportId(int reportId)
+        public List<Transaction> GetByReportId(int reportId)
         {
             List<Transaction> ListOfTransactionsByReportId = context.Transaction.Include(t => t.Category).Where(t => t.ReportId == reportId).ToList();
 

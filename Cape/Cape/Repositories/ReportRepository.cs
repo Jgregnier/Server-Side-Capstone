@@ -42,7 +42,6 @@ namespace Cape.Repositories
 
         public List<Report> GetByUser (string UserId)
         {
-
             List<Report> listOfReports = context.Report.Include(r => r.Transactions).Where(r => r.UserId == UserId).ToList();
 
             return listOfReports;

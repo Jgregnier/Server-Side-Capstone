@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Reports";
 }
-<h2>@ViewBag.Title.</h2>
+<h2>@ViewBag.Title</h2>
 <h3>@ViewBag.Message</h3>
 
 @foreach(var report in Model.AllReports)
@@ -17,12 +17,12 @@
         {
             double amountSpentPerCategory = 0;
 
-            foreach(var transaction in report.Transactions)
+            foreach (var transaction in report.Transactions)
             {
                 if (transaction.CategoryId == category.CategoryId)
                 {
                     amountSpentPerCategory += transaction.Amount;
-                };
+                }
             }
             <p>@Html.DisplayFor(modelItem => category.Name) : @Html.DisplayFor(modelItem => amountSpentPerCategory) </p>
         }
