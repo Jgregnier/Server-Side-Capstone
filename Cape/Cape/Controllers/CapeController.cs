@@ -104,5 +104,11 @@ namespace Cape.Controllers
 
             return RedirectToAction("Reports");
         }
+
+        [HttpGet]
+        public ActionResult Info()
+        {
+            return View();
+        }
     }
 }

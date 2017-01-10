@@ -455,6 +455,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\Site.js" />
     <Content Include="Scripts\_references.js" />
+    <None Include="Views\Cape\Info.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
