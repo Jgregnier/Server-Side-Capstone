@@ -105,6 +105,23 @@ namespace Cape.Controllers
             return RedirectToAction("Reports");
         }
 
+        [HttpPost]
+        [Authorize]
+        public ActionResult UploadXlsx()
+        {
+            int newReportId = reportRepository.Create(userId);
+
+            StreamReader sr = new StreamReader(Request.Files[0].InputStream);
+            
+            XlsxConverter Converter = new XlsxConverter();
+
+            ICollection<Transaction> NewTransactions = Converter.ConvertXlsxFiles(sr.BaseStream);
+
+            transactionRepository.AddNewTransactions(NewTransactions, newReportId);
+
+            return RedirectToAction("Reports");
+        }
+
         [HttpGet]
         public ActionResult Info()
         {
