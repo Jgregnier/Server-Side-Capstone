@@ -62,7 +62,6 @@ namespace Cape.Controllers
         [Authorize]
         public JsonResult AddCategoryToTransaction([System.Web.Http.FromBody]string categoryId, [System.Web.Http.FromBody]string transactionId)
         {
-
             transactionRepository.AddCategoryToTransaction(Convert.ToInt32(categoryId), Convert.ToInt32(transactionId));
         
             return Json("Success");
