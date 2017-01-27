@@ -30,7 +30,7 @@ namespace Cape.Controllers
         private IReportRepository reportRepository;
 
         private ITransactionRepository transactionRepository;
-
+       
         public ActionResult Index()
         {
             return View();

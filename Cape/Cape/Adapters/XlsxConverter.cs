@@ -35,30 +35,5 @@ namespace Cape.Adapters
             }
             return TransactionsToBeSaved;
         }
-
-        //public XSSFWorkbook ExportXlsxFile(List<Transaction> TransactionsToExportedAsXlsx)
-        //{
-        //    XSSFWorkbook WorkBook = new XSSFWorkbook();
-
-        //    List<ICell> cells = new List<ICell>();
-        //    cells[0].SetCellType(CellType.String);
-        //    cells[1].SetCellType(CellType.String);
-        //    cells[2].SetCellType(CellType.String);
-
-        //    cells[0].SetCellValue("Date");
-        //    cells[1].SetCellValue("Description");
-        //    cells[2].SetCellValue("Amount");
-
-        //    IRow row;
-
-        //    row.Cells = cells;
-
-        //    foreach (Transaction transaction in TransactionsToExportedAsXlsx)
-        //    {
-                
-        //    }
-
-        //    return WorkBook;
-        //}
     }
 }
